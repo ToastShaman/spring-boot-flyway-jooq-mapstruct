@@ -1,0 +1,29 @@
+server:
+  port: 9191
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    url: jdbc:h2:mem:db;MODE=MYSQL;IGNORECASE=TRUE
+
+  jooq:
+    sql-dialect: mysql
+
+  flyway:
+    schemas: EVA
+
+  jackson:
+    default-property-inclusion: non_null
+    deserialization:
+      fail-on-unknown-properties: false
+      use-big-decimal-for-floats: true
+      use-big-integer-for-ints: true
+    serialization:
+      write-bigdecimal-as-plain: true
+      indent-output: false
+
+logging:
+  level:
+    org.jooq.tools.LoggerListener: DEBUG
