@@ -1,5 +1,6 @@
 package com.example.demo.scenarios.storage;
 
+import com.example.demo.api.domain.EventId;
 import com.example.demo.storage.EventsRepository;
 import com.example.demo.storage.domain.EventRecord;
 import java.util.Map;
@@ -14,8 +15,8 @@ public class InMemoryEventsRepository implements EventsRepository {
   private final Map<Long, EventRecord<Long>> table = new TreeMap<>();
 
   @Override
-  public Optional<EventRecord<Long>> findById(long id) {
-    return Optional.ofNullable(table.get(id));
+  public Optional<EventRecord<Long>> findById(EventId id) {
+    return Optional.ofNullable(table.get(id.unwrap()));
   }
 
   @Override
@@ -23,6 +24,11 @@ public class InMemoryEventsRepository implements EventsRepository {
     EventRecord<Long> record = EventRecordTestMapper.INSTANCE.map(event);
     table.put(record.id(), record);
     return record;
+  }
+
+  @Override
+  public EventRecord<Long> update(EventRecord<Long> event) {
+    return null;
   }
 
   @Mapper

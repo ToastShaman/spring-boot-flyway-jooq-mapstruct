@@ -1,4 +1,4 @@
-GET http://localhost:9191/api/v1/events/4
+GET http://localhost:9191/api/v1/events/1
 Accept: application/json
 
 ###
@@ -8,5 +8,15 @@ Content-Type: application/json
 
 {
   "title": "Hello World",
+  "startDate": "2023-02-15T18:35:24.00Z"
+}
+
+###
+PUT http://localhost:9191/api/v1/events/1
+Accept: application/json
+Content-Type: application/json
+
+{
+  "title": "Hello World 1",
   "startDate": "2023-02-15T18:35:24.00Z"
 }

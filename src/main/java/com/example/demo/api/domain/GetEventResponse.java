@@ -6,7 +6,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 public record GetEventResponse(
-    long title,
+    Long id,
+    String title,
     LocalDateTime startDate
 ) {
 
