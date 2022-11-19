@@ -1,46 +1,35 @@
 package com.example.demo.scenarios.storage;
 
 import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.Event;
 import com.example.demo.storage.EventsRepository;
-import com.example.demo.storage.domain.EventRecord;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
-import org.mapstruct.Mapper;
-import org.mapstruct.factory.Mappers;
 
 public class InMemoryEventsRepository implements EventsRepository {
 
-  private final Map<Long, EventRecord<Long>> table = new TreeMap<>();
+  private final AtomicLong nextId = new AtomicLong(0);
+
+  private final Map<EventId, Event<EventId>> table = new TreeMap<>();
 
   @Override
-  public Optional<EventRecord<Long>> findById(EventId id) {
-    return Optional.ofNullable(table.get(id.unwrap()));
+  public Optional<Event<EventId>> findById(EventId id) {
+    return Optional.ofNullable(table.get(id));
   }
 
   @Override
-  public EventRecord<Long> insert(EventRecord<Void> event) {
-    EventRecord<Long> record = EventRecordTestMapper.INSTANCE.map(event);
-    table.put(record.id(), record);
-    return record;
+  public Event<EventId> insert(Event<Void> event) {
+    var eventId = EventId.of(nextId.incrementAndGet());
+    var newEvent = event.withId(eventId);
+    table.put(eventId, newEvent);
+    return newEvent;
   }
 
   @Override
-  public EventRecord<Long> update(EventRecord<Long> event) {
-    return null;
-  }
-
-  @Mapper
-  interface EventRecordTestMapper {
-    AtomicLong index = new AtomicLong(0);
-
-    EventRecordTestMapper INSTANCE = Mappers.getMapper(EventRecordTestMapper.class);
-
-    EventRecord<Long> map(EventRecord<Void> event);
-
-    default Long map(Void ignoredValue) {
-      return index.incrementAndGet();
-    }
+  public Event<EventId> update(Event<EventId> event) {
+    table.replace(event.id(), event);
+    return event;
   }
 }

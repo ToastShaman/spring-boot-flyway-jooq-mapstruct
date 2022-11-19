@@ -2,9 +2,8 @@ package com.example.demo.storage.sql;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import com.example.demo.scenarios.domain.Events;
 import com.example.demo.storage.EventsRepository;
-import com.example.demo.storage.domain.EventRecord;
-import java.time.LocalDateTime;
 import org.junit.jupiter.api.Test;
 
 public interface EventsRepositoryContractTest {
@@ -13,8 +12,7 @@ public interface EventsRepositoryContractTest {
 
   @Test
   default void can_insert_event() {
-    var record = new EventRecord<Void>(null, "A vs B", LocalDateTime.now());
-    var inserted = repository().insert(record);
+    var inserted = repository().insert(Events.random());
     assertThat(inserted).isNotNull();
   }
 }

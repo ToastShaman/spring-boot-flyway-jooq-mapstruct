@@ -1,5 +1,5 @@
 package com.example.demo.api.domain;
 
-public record CreateEventResponse(long id) {
+public record CreateEventResponse(EventId id) {
 }
 

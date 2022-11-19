@@ -8,7 +8,7 @@ import com.example.demo.api.domain.CreateEventResponse;
 import com.example.demo.api.domain.EventId;
 import com.example.demo.api.domain.GetEventResponse;
 import com.example.demo.api.domain.UpdateEventRequest;
-import com.example.demo.storage.EventsRepository;
+import com.example.demo.events.EventEngine;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,15 +22,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class EventController {
 
-  private final EventsRepository repository;
+  private final EventEngine eventEngine;
 
-  public EventController(EventsRepository repository) {
-    this.repository = repository;
+  public EventController(EventEngine eventEngine) {
+    this.eventEngine = eventEngine;
   }
 
   @GetMapping("/events/{id}")
   public ResponseEntity<?> get(@PathVariable long id) {
-    return repository
+    return eventEngine
         .findById(EventId.of(id))
         .map(GetEventResponse.MAPPER::map)
         .map(ResponseEntity::ok)
@@ -39,22 +39,19 @@ public class EventController {
 
   @PostMapping("/events")
   public ResponseEntity<CreateEventResponse> create(@RequestBody CreateEventRequest request) {
-    var inserted = repository.insert(request.asRecord());
-    var response = new CreateEventResponse(inserted.id());
+    var created = eventEngine.create(request.asEvent());
+    var response = new CreateEventResponse(created.id());
     return ResponseEntity.status(CREATED).body(response);
   }
 
   @PutMapping("/events/{id}")
   public ResponseEntity<?> update(@PathVariable long id, @RequestBody UpdateEventRequest request) {
     var eventId = EventId.of(id);
-
-    boolean present = repository.findById(eventId).isPresent();
+    var present = eventEngine.findById(eventId).isPresent();
     if (!present) {
       return ResponseEntity.notFound().build();
     }
-
-    repository.update(request.asRecord(eventId));
-
+    eventEngine.update(request.asEvent(eventId));
     return ResponseEntity.status(NO_CONTENT).build();
   }
 }

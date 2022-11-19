@@ -2,7 +2,6 @@ package com.example.demo.scenarios;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.example.demo.api.domain.EventId;
 import com.example.demo.scenarios.actors.Environment;
 import com.example.demo.scenarios.actors.Web;
 import com.example.demo.scenarios.domain.CreateEventRequests;
@@ -17,6 +16,6 @@ public class EventsScenarioTests {
   @Test
   void creates_events() {
     var response = web.createEvent(CreateEventRequests.random());
-    assertThat(env.repository.findById(EventId.of(response.id()))).isPresent();
+    assertThat(env.repository.findById(response.id())).isPresent();
   }
 }
