@@ -1,5 +1,6 @@
 package com.example.demo.api;
 
+import static org.springframework.http.HttpStatus.CONFLICT;
 import static org.springframework.http.HttpStatus.CREATED;
 import static org.springframework.http.HttpStatus.NO_CONTENT;
 
@@ -9,6 +10,7 @@ import com.example.demo.api.domain.EventId;
 import com.example.demo.api.domain.GetEventResponse;
 import com.example.demo.api.domain.UpdateEventRequest;
 import com.example.demo.events.EventEngine;
+import com.example.demo.storage.DataConflictException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -31,28 +33,37 @@ public class EventController {
   @GetMapping("/events/{id}")
   public ResponseEntity<?> get(@PathVariable long id) {
     return eventEngine
-        .findById(EventId.of(id))
-        .map(GetEventResponse.MAPPER::map)
+        .findById(new EventId(id))
+        .map(GetEventResponse::from)
         .map(ResponseEntity::ok)
         .orElseGet(() -> ResponseEntity.notFound().build());
   }
 
   @PostMapping("/events")
   public ResponseEntity<CreateEventResponse> create(@RequestBody CreateEventRequest request) {
-    var created = eventEngine.create(request.asEvent());
-    var response = new CreateEventResponse(created.id());
+    var event = request.asEvent();
+    var created = eventEngine.create(event);
+    var response = CreateEventResponse.from(created);
     return ResponseEntity.status(CREATED).body(response);
   }
 
   @PutMapping("/events/{id}")
-  public ResponseEntity<?> update(@PathVariable long id, @RequestBody UpdateEventRequest request) {
-    var eventId = EventId.of(id);
-    var present = eventEngine.findById(eventId).isPresent();
-    if (!present) {
-      return ResponseEntity.notFound().build();
+  public ResponseEntity<?> update(
+      @PathVariable long id,
+      @RequestBody UpdateEventRequest request
+  ) {
+    try {
+      var eventId = new EventId(id);
+      var present = eventEngine.findById(eventId).isPresent();
+      if (!present) {
+        return ResponseEntity.notFound().build();
+      }
+      var event = request.asEvent(eventId);
+      eventEngine.update(event);
+      return ResponseEntity.status(NO_CONTENT).build();
+    } catch (DataConflictException e) {
+      return ResponseEntity.status(CONFLICT).build();
     }
-    eventEngine.update(request.asEvent(eventId));
-    return ResponseEntity.status(NO_CONTENT).build();
   }
 }
 

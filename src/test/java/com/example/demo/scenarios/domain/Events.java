@@ -2,6 +2,7 @@ package com.example.demo.scenarios.domain;
 
 import com.example.demo.api.domain.EventStartDate;
 import com.example.demo.api.domain.EventTitle;
+import com.example.demo.api.domain.EventVersion;
 import com.example.demo.events.domain.Event;
 import java.time.Clock;
 import java.time.Duration;
@@ -30,6 +31,7 @@ public final class Events {
 
     return new Event<>(
         null,
+        new EventVersion(0),
         new EventTitle(title),
         EventStartDate.of(Instant.now(clock).plus(Duration.ofDays(1)))
     );

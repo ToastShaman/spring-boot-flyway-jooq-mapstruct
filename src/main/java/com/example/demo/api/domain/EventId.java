@@ -8,8 +8,4 @@ public class EventId extends LongValue {
   public EventId(long value) {
     super(value, Validator.Min(1L));
   }
-
-  public static EventId of(long value) {
-    return new EventId(value);
-  }
 }

@@ -2,6 +2,7 @@ package com.example.demo.events;
 
 import com.example.demo.api.domain.EventId;
 import com.example.demo.events.domain.Event;
+import com.example.demo.storage.DataConflictException;
 import java.util.Optional;
 
 public interface EventEngine {
@@ -10,5 +11,5 @@ public interface EventEngine {
 
   Event<EventId> create(Event<Void> event);
 
-  Event<EventId> update(Event<EventId> event);
+  Event<EventId> update(Event<EventId> event) throws DataConflictException;
 }

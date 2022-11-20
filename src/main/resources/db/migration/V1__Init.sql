@@ -1,6 +1,7 @@
 create table EVENT
 (
     EVENT_ID   bigint       not null auto_increment,
+    VERSION    bigint       not null default 0,
     TITLE      varchar(255) not null,
     START_DATE datetime     not null,
     DELETED    boolean      not null default false,

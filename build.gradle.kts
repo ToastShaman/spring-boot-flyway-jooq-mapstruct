@@ -87,6 +87,13 @@ jooq {
                         inputSchema = "EVA"
                         includes = ".*"
                         excludes = ""
+                        recordTimestampFields = "MODIFIED"
+                        recordVersionFields = "VERSION"
+                    }
+                    generate.apply {
+                        isPojos = true
+                        isPojosAsJavaRecordClasses = true
+                        isFluentSetters = true
                     }
                 }
             }

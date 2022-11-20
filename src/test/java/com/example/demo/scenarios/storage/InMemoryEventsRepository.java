@@ -7,6 +7,9 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;
 import java.util.concurrent.atomic.AtomicLong;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
+import org.mapstruct.factory.Mappers;
 
 public class InMemoryEventsRepository implements EventsRepository {
 
@@ -21,8 +24,8 @@ public class InMemoryEventsRepository implements EventsRepository {
 
   @Override
   public Event<EventId> insert(Event<Void> event) {
-    var eventId = EventId.of(nextId.incrementAndGet());
-    var newEvent = event.withId(eventId);
+    var eventId = new EventId(nextId.incrementAndGet());
+    var newEvent = TestEventMapper.INSTANCE.map(event, eventId);
     table.put(eventId, newEvent);
     return newEvent;
   }
@@ -31,5 +34,14 @@ public class InMemoryEventsRepository implements EventsRepository {
   public Event<EventId> update(Event<EventId> event) {
     table.replace(event.id(), event);
     return event;
+  }
+
+  @Mapper
+  interface TestEventMapper {
+
+    TestEventMapper INSTANCE = Mappers.getMapper(TestEventMapper.class);
+
+    @Mapping(source = "eventId", target = "id")
+    Event<EventId> map(Event<Void> event, EventId eventId);
   }
 }

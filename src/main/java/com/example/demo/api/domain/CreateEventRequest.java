@@ -20,6 +20,7 @@ public record CreateEventRequest(
     CreateEventRequestMapper INSTANCE = Mappers.getMapper(CreateEventRequestMapper.class);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "version", ignore = true)
     Event<Void> map(CreateEventRequest request);
   }
 }

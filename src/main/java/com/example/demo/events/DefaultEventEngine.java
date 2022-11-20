@@ -2,6 +2,7 @@ package com.example.demo.events;
 
 import com.example.demo.api.domain.EventId;
 import com.example.demo.events.domain.Event;
+import com.example.demo.storage.DataConflictException;
 import com.example.demo.storage.EventsRepository;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
@@ -31,7 +32,7 @@ public class DefaultEventEngine implements EventEngine {
   }
 
   @Override
-  public Event<EventId> update(Event<EventId> event) {
+  public Event<EventId> update(Event<EventId> event) throws DataConflictException {
     return repository.update(event);
   }
 }

@@ -10,5 +10,5 @@ public interface EventsRepository {
 
   Event<EventId> insert(Event<Void> event);
 
-  Event<EventId> update(Event<EventId> event);
+  Event<EventId> update(Event<EventId> event) throws DataConflictException;
 }

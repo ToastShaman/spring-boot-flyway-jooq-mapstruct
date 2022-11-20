@@ -7,11 +7,12 @@ import org.mapstruct.factory.Mappers;
 
 public record UpdateEventRequest(
     EventTitle title,
-    EventStartDate startDate
+    EventStartDate startDate,
+    EventVersion version
 ) {
 
   public Event<EventId> asEvent(EventId eventId) {
-    return UpdateEventRequestMapper.INSTANCE.map(this).withId(eventId);
+    return UpdateEventRequestMapper.INSTANCE.map(this, eventId);
   }
 
   @Mapper
@@ -19,7 +20,7 @@ public record UpdateEventRequest(
 
     UpdateEventRequestMapper INSTANCE = Mappers.getMapper(UpdateEventRequestMapper.class);
 
-    @Mapping(target = "id", ignore = true)
-    Event<Void> map(UpdateEventRequest request);
+    @Mapping(source = "eventId", target = "id")
+    Event<EventId> map(UpdateEventRequest request, EventId eventId);
   }
 }

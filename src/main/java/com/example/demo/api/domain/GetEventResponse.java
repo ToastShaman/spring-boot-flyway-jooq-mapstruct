@@ -6,11 +6,14 @@ import org.mapstruct.factory.Mappers;
 
 public record GetEventResponse(
     EventId id,
+    EventVersion version,
     EventTitle title,
     EventStartDate startDate
 ) {
 
-  public static final GetEventResponseMapper MAPPER = GetEventResponseMapper.INSTANCE;
+  public static GetEventResponse from(Event<EventId> record) {
+    return GetEventResponseMapper.INSTANCE.map(record);
+  }
 
   @Mapper
   public interface GetEventResponseMapper {
