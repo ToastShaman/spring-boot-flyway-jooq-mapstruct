@@ -3,13 +3,12 @@ package com.example.demo.storage.sql;
 import static java.time.ZoneOffset.UTC;
 import static org.jooq.generated.Tables.EVENT;
 
-import com.example.demo.api.domain.EventId;
-import com.example.demo.api.domain.EventStartDate;
-import com.example.demo.api.domain.EventTitle;
-import com.example.demo.api.domain.EventVersion;
+import com.example.demo.events.domain.EventId;
+import com.example.demo.events.domain.EventStartDate;
+import com.example.demo.events.domain.EventTitle;
+import com.example.demo.events.domain.EventVersion;
 import com.example.demo.events.domain.Event;
 import org.jooq.Record;
-import org.jooq.generated.tables.records.EventRecord;
 
 public interface EventRecordMapper {
 

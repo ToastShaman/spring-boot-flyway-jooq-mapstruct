@@ -1,6 +1,7 @@
 package com.example.demo.api.domain;
 
 import com.example.demo.events.domain.Event;
+import com.example.demo.events.domain.EventId;
 
 public record CreateEventResponse(EventId id) {
 

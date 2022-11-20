@@ -1,6 +1,10 @@
 package com.example.demo.api.domain;
 
 import com.example.demo.events.domain.Event;
+import com.example.demo.events.domain.EventId;
+import com.example.demo.events.domain.EventStartDate;
+import com.example.demo.events.domain.EventTitle;
+import com.example.demo.events.domain.EventVersion;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,4 +1,4 @@
-package com.example.demo.api.domain;
+package com.example.demo.events.domain;
 
 import com.example.demo.tinytypes.validation.Validator;
 import com.example.demo.tinytypes.values.NonBlankStringValue;

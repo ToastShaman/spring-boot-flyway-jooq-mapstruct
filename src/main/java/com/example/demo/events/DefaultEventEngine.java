@@ -1,6 +1,6 @@
 package com.example.demo.events;
 
-import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.events.domain.Event;
 import com.example.demo.storage.DataConflictException;
 import com.example.demo.storage.EventsRepository;

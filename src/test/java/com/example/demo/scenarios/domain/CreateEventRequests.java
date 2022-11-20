@@ -1,8 +1,8 @@
 package com.example.demo.scenarios.domain;
 
 import com.example.demo.api.domain.CreateEventRequest;
-import com.example.demo.api.domain.EventStartDate;
-import com.example.demo.api.domain.EventTitle;
+import com.example.demo.events.domain.EventStartDate;
+import com.example.demo.events.domain.EventTitle;
 import java.time.Clock;
 import java.time.Duration;
 import java.time.Instant;

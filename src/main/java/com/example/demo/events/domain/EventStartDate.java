@@ -1,4 +1,4 @@
-package com.example.demo.api.domain;
+package com.example.demo.events.domain;
 
 import static java.time.ZoneOffset.UTC;
 

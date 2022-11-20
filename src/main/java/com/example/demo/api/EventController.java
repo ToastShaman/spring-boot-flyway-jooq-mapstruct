@@ -6,7 +6,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import com.example.demo.api.domain.CreateEventRequest;
 import com.example.demo.api.domain.CreateEventResponse;
-import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.api.domain.GetEventResponse;
 import com.example.demo.api.domain.UpdateEventRequest;
 import com.example.demo.events.EventEngine;

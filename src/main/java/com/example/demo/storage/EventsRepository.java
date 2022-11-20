@@ -1,6 +1,6 @@
 package com.example.demo.storage;
 
-import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.events.domain.Event;
 import java.util.Optional;
 

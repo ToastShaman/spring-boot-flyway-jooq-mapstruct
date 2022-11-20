@@ -1,6 +1,6 @@
 package com.example.demo.events;
 
-import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.events.domain.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -3,7 +3,7 @@ package com.example.demo.storage.sql;
 import static org.jooq.generated.Tables.EVENT;
 import static org.jooq.generated.Tables.EVENT_HISTORY;
 
-import com.example.demo.api.domain.EventId;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.events.domain.Event;
 import com.example.demo.storage.DataConflictException;
 import com.example.demo.storage.EventsRepository;
