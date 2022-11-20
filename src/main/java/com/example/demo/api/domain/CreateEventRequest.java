@@ -9,7 +9,7 @@ import org.mapstruct.factory.Mappers;
 
 public record CreateEventRequest(
     EventTitle title,
-    EventStartDate startDate
+    FutureEventStartDate startDate
 ) {
 
   public Event<Void> asEvent() {
@@ -24,5 +24,9 @@ public record CreateEventRequest(
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "version", ignore = true)
     Event<Void> map(CreateEventRequest request);
+
+    default EventStartDate map(FutureEventStartDate date) {
+      return EventStartDate.of(date.unwrap());
+    }
   }
 }

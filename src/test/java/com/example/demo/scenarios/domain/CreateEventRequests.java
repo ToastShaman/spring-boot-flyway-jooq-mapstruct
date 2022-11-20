@@ -1,7 +1,7 @@
 package com.example.demo.scenarios.domain;
 
 import com.example.demo.api.domain.CreateEventRequest;
-import com.example.demo.events.domain.EventStartDate;
+import com.example.demo.api.domain.FutureEventStartDate;
 import com.example.demo.events.domain.EventTitle;
 import java.time.Clock;
 import java.time.Duration;
@@ -30,7 +30,7 @@ public final class CreateEventRequests {
 
     return new CreateEventRequest(
         new EventTitle(title),
-        EventStartDate.of(Instant.now(clock).plus(Duration.ofDays(1)))
+        FutureEventStartDate.of(Instant.now(clock).plus(Duration.ofDays(1)))
     );
   }
 }
