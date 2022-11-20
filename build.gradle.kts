@@ -40,6 +40,10 @@ dependencies {
     annotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
     testAnnotationProcessor("org.mapstruct:mapstruct-processor:1.5.3.Final")
 
+    // Records
+    annotationProcessor("io.soabase.record-builder:record-builder-processor:34")
+    compileOnly("io.soabase.record-builder:record-builder-core:34")
+
     // HTTP
     implementation(platform("com.squareup.okhttp3:okhttp-bom:4.10.0"))
     implementation("com.squareup.okhttp3:okhttp")

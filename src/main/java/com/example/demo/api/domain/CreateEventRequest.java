@@ -26,7 +26,7 @@ public record CreateEventRequest(
     Event<Void> map(CreateEventRequest request);
 
     default EventStartDate map(FutureEventStartDate date) {
-      return EventStartDate.of(date.unwrap());
+      return new EventStartDate(date.unwrap());
     }
   }
 }

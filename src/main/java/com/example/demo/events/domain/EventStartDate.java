@@ -21,7 +21,4 @@ public class EventStartDate extends InstantValue {
     return LocalDateTime.ofInstant(value, UTC);
   }
 
-  public static EventStartDate of(Instant instant) {
-    return new EventStartDate(instant.toString());
-  }
 }

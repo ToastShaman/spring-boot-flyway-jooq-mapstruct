@@ -1,7 +1,7 @@
 package com.example.demo.scenarios.storage;
 
-import com.example.demo.events.domain.EventId;
 import com.example.demo.events.domain.Event;
+import com.example.demo.events.domain.EventId;
 import com.example.demo.storage.EventsRepository;
 import java.util.Map;
 import java.util.Optional;
