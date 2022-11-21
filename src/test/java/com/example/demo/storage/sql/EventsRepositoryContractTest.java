@@ -8,6 +8,7 @@ import com.example.demo.scenarios.domain.EventTitles;
 import com.example.demo.scenarios.domain.Events;
 import com.example.demo.storage.DataConflictException;
 import com.example.demo.storage.EventsRepository;
+import java.time.Clock;
 import java.util.Random;
 import net.datafaker.Faker;
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.Test;
 public interface EventsRepositoryContractTest {
 
   EventsRepository repository();
+
+  Clock clock();
 
   Faker faker = new Faker(new Random(38474));
 

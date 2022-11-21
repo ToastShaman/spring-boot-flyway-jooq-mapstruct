@@ -3,6 +3,7 @@ package com.example.demo.storage.sql;
 import static org.springframework.boot.jdbc.EmbeddedDatabaseConnection.H2;
 
 import com.example.demo.storage.EventsRepository;
+import java.time.Clock;
 import org.jooq.DSLContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -17,6 +18,11 @@ class SqlEventsRepositoryTest implements EventsRepositoryContractTest {
 
   @Override
   public EventsRepository repository() {
-    return new SqlEventsRepository(dslContext);
+    return new SqlEventsRepository(dslContext, clock());
+  }
+
+  @Override
+  public Clock clock() {
+    return Clock.systemUTC();
   }
 }
